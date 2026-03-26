@@ -42,15 +42,15 @@ const SecurePDFViewer: React.FC<SecurePDFViewerProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg w-full h-full max-w-6xl max-h-[90vh] flex flex-col">
+      <div className="bg-white dark:bg-slate-800 rounded-lg w-full h-full max-w-6xl max-h-[90vh] flex flex-col shadow-2xl">
         {/* Simple Header */}
-        <div className="flex items-center justify-between p-4 border-b bg-white">
-          <h3 className="text-lg font-semibold text-gray-800 truncate">
+        <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-t-lg">
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white truncate">
             {title}
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
           >
             <span className="material-symbols-outlined text-2xl">close</span>
           </button>

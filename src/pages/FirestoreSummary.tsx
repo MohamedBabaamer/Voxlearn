@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AdminRoute from '../components/AdminRoute';
 import { useAuth } from '../contexts/AuthContext';
 import { getAllCourses, getAllSeries, getAllUsers, getAllPayments, getAllResources } from '../services/database.service';
 import type { Course, Series, Resource } from '../types';
@@ -132,6 +131,92 @@ const FirestoreSummary: React.FC = () => {
     );
   }
 
+  if (loading) {
+    return (
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 z-50 flex items-center justify-center">
+        <div className="text-center space-y-8 p-8">
+          {/* Animated Logo/Icon */}
+          <div className="relative inline-block">
+            <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="relative bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-2xl border border-slate-200 dark:border-slate-700">
+              <span className="material-symbols-outlined text-7xl text-primary animate-bounce">
+                database
+              </span>
+            </div>
+          </div>
+
+          {/* Loading Rings */}
+          <div className="flex justify-center items-center gap-3">
+            <div className="relative w-20 h-20">
+              {/* Outer spinning ring */}
+              <div className="absolute inset-0 border-4 border-slate-200 dark:border-slate-700/50 rounded-full"></div>
+              <div
+                className="absolute inset-0 border-4 border-primary dark:border-primary/80 border-t-transparent rounded-full animate-spin"
+                style={{ animationDuration: "0.6s" }}
+              ></div>
+
+              {/* Inner spinning ring (opposite direction) */}
+              <div className="absolute inset-2 border-4 border-slate-100 dark:border-slate-800 rounded-full"></div>
+              <div
+                className="absolute inset-2 border-4 border-primary/50 dark:border-primary/30 border-b-transparent rounded-full animate-spin"
+                style={{
+                  animationDirection: "reverse",
+                  animationDuration: "0.5s",
+                }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Loading Text */}
+          <div className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+              Loading Firestore
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 font-medium">
+              Fetching database summary...
+            </p>
+
+            {/* Animated Dots */}
+            <div className="flex justify-center gap-2 pt-2">
+              <div
+                className="w-2 h-2 bg-primary dark:bg-primary/80 rounded-full animate-bounce"
+                style={{ animationDelay: "0ms" }}
+              ></div>
+              <div
+                className="w-2 h-2 bg-primary dark:bg-primary/80 rounded-full animate-bounce"
+                style={{ animationDelay: "150ms" }}
+              ></div>
+              <div
+                className="w-2 h-2 bg-primary dark:bg-primary/80 rounded-full animate-bounce"
+                style={{ animationDelay: "300ms" }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-64 mx-auto">
+            <div className="h-1.5 bg-slate-200 dark:bg-slate-700/50 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-primary to-primary/60 dark:from-primary/80 dark:to-primary/40 rounded-full"
+                style={{
+                  width: "100%",
+                  animation: "shimmer 0.8s ease-in-out infinite",
+                }}
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <style>{`
+          @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-4">
@@ -145,20 +230,19 @@ const FirestoreSummary: React.FC = () => {
         </div>
       </div>
 
-      {loading && <div className="text-sm text-slate-500">Loading...</div>}
-      {error && <div className="text-sm text-red-500">{error}</div>}
+      {error && <div className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/40 p-3 rounded-lg">{error}</div>}
 
       <div className="bg-white border rounded-lg shadow-sm p-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <input value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }} placeholder="Search current tab..." className="px-3 py-2 border border-slate-200 rounded-lg text-sm" />
-            <select value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }} className="px-2 py-2 border border-slate-200 rounded-lg text-sm">
+            <input value={searchQuery} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setSearchQuery(e.target.value); setCurrentPage(1); }} placeholder="Search current tab..." className="px-3 py-2 border border-slate-200 rounded-lg text-sm" />
+            <select value={pageSize} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }} className="px-2 py-2 border border-slate-200 rounded-lg text-sm">
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
-            <select value={sortBy} onChange={(e) => { setSortBy(e.target.value); setCurrentPage(1); }} className="px-2 py-2 border border-slate-200 rounded-lg text-sm">
+            <select value={sortBy} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => { setSortBy(e.target.value); setCurrentPage(1); }} className="px-2 py-2 border border-slate-200 rounded-lg text-sm">
               {/* options depend on tab - provide common fields and some tab-specific */}
               <option value="">Sort by</option>
               {activeTab === 'courses' && (
@@ -193,7 +277,7 @@ const FirestoreSummary: React.FC = () => {
                 </>
               )}
             </select>
-            <button onClick={() => setSortDir(prev => prev === 'asc' ? 'desc' : 'asc')} className="px-2 py-2 border border-slate-200 rounded text-sm">{sortDir === 'asc' ? 'Asc' : 'Desc'}</button>
+            <button onClick={() => setSortDir((prev: 'asc' | 'desc') => prev === 'asc' ? 'desc' : 'asc')} className="px-2 py-2 border border-slate-200 rounded text-sm">{sortDir === 'asc' ? 'Asc' : 'Desc'}</button>
             <button onClick={() => exportCSV(activeData, `${activeTab}_all.csv`)} className="px-3 py-2 bg-primary text-white rounded-lg text-sm">Export CSV (all)</button>
             <button onClick={() => exportCSV(pagedData, `${activeTab}_page${currentPage}.csv`)} className="px-3 py-2 bg-slate-100 rounded-lg text-sm">Export CSV (page)</button>
           </div>
@@ -326,9 +410,9 @@ const FirestoreSummary: React.FC = () => {
         <div className="mt-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button disabled={currentPage <= 1} onClick={() => setCurrentPage(1)} className="px-2 py-1 bg-slate-100 rounded">First</button>
-            <button disabled={currentPage <= 1} onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))} className="px-2 py-1 bg-slate-100 rounded">Prev</button>
+            <button disabled={currentPage <= 1} onClick={() => setCurrentPage((prev: number) => Math.max(1, prev - 1))} className="px-2 py-1 bg-slate-100 rounded">Prev</button>
             <span className="px-2">Page {currentPage} / {totalPages}</span>
-            <button disabled={currentPage >= totalPages} onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))} className="px-2 py-1 bg-slate-100 rounded">Next</button>
+            <button disabled={currentPage >= totalPages} onClick={() => setCurrentPage((prev: number) => Math.min(totalPages, prev + 1))} className="px-2 py-1 bg-slate-100 rounded">Next</button>
             <button disabled={currentPage >= totalPages} onClick={() => setCurrentPage(totalPages)} className="px-2 py-1 bg-slate-100 rounded">Last</button>
           </div>
           <div className="text-sm text-slate-500">{pagedData.length} rows on this page</div>

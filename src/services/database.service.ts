@@ -1,15 +1,17 @@
-import { 
-  collection, 
-  doc, 
-  getDocs, 
-  getDoc, 
-  addDoc, 
-  updateDoc, 
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
   deleteDoc,
   setDoc,
   query,
   where,
   orderBy,
+  limit,
+  startAfter,
   Timestamp,
   writeBatch,
   runTransaction
@@ -53,6 +55,7 @@ export const getAllUsers = async (): Promise<UserProfile[]> => {
 
 // ==================== COURSES ====================
 
+
 export const getAllCourses = async (): Promise<Course[]> => {
   console.log('🔍 getAllCourses: Fetching all courses...');
   try {
@@ -66,6 +69,29 @@ export const getAllCourses = async (): Promise<Course[]> => {
     throw error;
   }
 };
+
+export const getPaginatedCourses = async (limitCount: number, lastDoc?: any): Promise<{ courses: Course[], lastDoc: any }> => {
+  console.log('🔍 getPaginatedCourses: Fetching courses...');
+  try {
+    let q = query(collection(db, 'courses'), orderBy('code'), limit(limitCount));
+
+    if (lastDoc) {
+      q = query(collection(db, 'courses'), orderBy('code'), startAfter(lastDoc), limit(limitCount));
+    }
+
+    const querySnapshot = await getDocs(q);
+    console.log('✅ getPaginatedCourses: Found', querySnapshot.docs.length, 'courses');
+
+    const courses = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Course));
+    const newLastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+    return { courses, lastDoc: newLastDoc };
+  } catch (error: any) {
+    console.error('❌ getPaginatedCourses error:', error);
+    throw error;
+  }
+};
+
 
 export const getCoursesByUserId = async (userId: string): Promise<Course[]> => {
   const q = query(collection(db, 'courses'), where('userId', '==', userId));
@@ -109,7 +135,7 @@ export const deleteCourse = async (id: string): Promise<void> => {
 
 export const getResourcesByCourseId = async (courseId: string): Promise<Resource[]> => {
   const q = query(
-    collection(db, 'resources'), 
+    collection(db, 'resources'),
     where('courseId', '==', courseId)
   );
   const querySnapshot = await getDocs(q);
@@ -155,7 +181,7 @@ export const deleteResource = async (id: string): Promise<void> => {
 
 export const getExamsByCourseId = async (courseId: string): Promise<Exam[]> => {
   const q = query(
-    collection(db, 'exams'), 
+    collection(db, 'exams'),
     where('courseId', '==', courseId)
   );
   const querySnapshot = await getDocs(q);
@@ -182,7 +208,7 @@ export const deleteExam = async (id: string): Promise<void> => {
 
 export const getSeriesByCourseId = async (courseId: string): Promise<Series[]> => {
   const q = query(
-    collection(db, 'series'), 
+    collection(db, 'series'),
     where('courseId', '==', courseId)
   );
   const querySnapshot = await getDocs(q);
@@ -300,21 +326,21 @@ export const deletePayment = async (id: string): Promise<void> => {
 
 export const clearAllUserData = async (userId: string): Promise<void> => {
   const batch = writeBatch(db);
-  
+
   // Delete user profile
   const userRef = doc(db, 'users', userId);
   batch.delete(userRef);
-  
+
   // Delete user's courses
   const coursesQuery = query(collection(db, 'courses'), where('userId', '==', userId));
   const coursesSnapshot = await getDocs(coursesQuery);
   coursesSnapshot.docs.forEach(doc => batch.delete(doc.ref));
-  
+
   // Delete user's payments
   const paymentsQuery = query(collection(db, 'payments'), where('userId', '==', userId));
   const paymentsSnapshot = await getDocs(paymentsQuery);
   paymentsSnapshot.docs.forEach(doc => batch.delete(doc.ref));
-  
+
   await batch.commit();
 };
 

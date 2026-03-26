@@ -76,11 +76,11 @@ const ExamSettings: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 z-50 flex items-center justify-center">
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 z-50 flex items-center justify-center">
         <div className="text-center space-y-8 p-8">
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-            <div className="relative bg-white rounded-3xl p-8 shadow-2xl border border-slate-200">
+            <div className="relative bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-2xl dark:shadow-2xl border border-slate-200 dark:border-slate-700/50">
               <span className="material-symbols-outlined text-7xl text-primary animate-bounce">
                 settings
               </span>
@@ -89,31 +89,31 @@ const ExamSettings: React.FC = () => {
 
           <div className="flex justify-center items-center gap-3">
             <div className="relative w-20 h-20">
-              <div className="absolute inset-0 border-4 border-slate-200 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-primary border-t-transparent rounded-full animate-spin" style={{ animationDuration: '0.6s' }}></div>
-              <div className="absolute inset-2 border-4 border-slate-100 rounded-full"></div>
-              <div className="absolute inset-2 border-4 border-primary/50 border-b-transparent rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '0.5s' }}></div>
+              <div className="absolute inset-0 border-4 border-slate-200 dark:border-slate-700/50 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-primary dark:border-primary/80 border-t-transparent rounded-full animate-spin" style={{ animationDuration: '0.6s' }}></div>
+              <div className="absolute inset-2 border-4 border-slate-100 dark:border-slate-800 rounded-full"></div>
+              <div className="absolute inset-2 border-4 border-primary/50 dark:border-primary/30 border-b-transparent rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '0.5s' }}></div>
             </div>
           </div>
 
           <div className="space-y-3">
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
               Loading Settings
             </h2>
-            <p className="text-slate-500 font-medium">
+            <p className="text-slate-500 dark:text-slate-400 font-medium">
               Preparing exam configuration...
             </p>
             
             <div className="flex justify-center gap-2 pt-2">
-              <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-              <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+              <div className="w-2 h-2 bg-primary dark:bg-primary/80 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+              <div className="w-2 h-2 bg-primary dark:bg-primary/80 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+              <div className="w-2 h-2 bg-primary dark:bg-primary/80 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
             </div>
           </div>
 
           <div className="w-64 mx-auto">
-            <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full" style={{ width: '100%', animation: 'shimmer 0.8s ease-in-out infinite' }}></div>
+            <div className="h-1.5 bg-slate-200 dark:bg-slate-700/50 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-primary to-primary/60 dark:from-primary/80 dark:to-primary/40 rounded-full" style={{ width: '100%', animation: 'shimmer 0.8s ease-in-out infinite' }}></div>
             </div>
           </div>
         </div>
@@ -133,12 +133,12 @@ const ExamSettings: React.FC = () => {
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="size-12 rounded-xl bg-purple-100 flex items-center justify-center">
-            <span className="material-symbols-outlined text-2xl text-purple-600">schedule</span>
+          <div className="size-12 rounded-xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center">
+            <span className="material-symbols-outlined text-2xl text-purple-600 dark:text-purple-400">schedule</span>
           </div>
           <div>
-            <h1 className="text-3xl font-black text-slate-900">Exam Settings</h1>
-            <p className="text-slate-500 text-sm">Control global solution unlock date</p>
+            <h1 className="text-3xl font-black text-slate-900 dark:text-white">Exam Settings</h1>
+            <p className="text-slate-500 dark:text-slate-400 text-sm">Control global solution unlock date</p>
           </div>
         </div>
       </div>
@@ -147,8 +147,8 @@ const ExamSettings: React.FC = () => {
       {notification && (
         <div className={`mb-6 p-4 rounded-lg border ${
           notification.type === 'success' 
-            ? 'bg-green-50 border-green-200 text-green-800' 
-            : 'bg-red-50 border-red-200 text-red-800'
+            ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200' 
+            : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200'
         }`}>
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined">
@@ -162,23 +162,23 @@ const ExamSettings: React.FC = () => {
       {/* Status Card */}
       <div className={`mb-6 p-6 rounded-xl border-2 ${
         isExamDatePassed 
-          ? 'bg-green-50 border-green-300' 
-          : 'bg-amber-50 border-amber-300'
+          ? 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-800/50' 
+          : 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-800/50'
       }`}>
         <div className="flex items-start gap-4">
           <span className={`material-symbols-outlined text-4xl ${
-            isExamDatePassed ? 'text-green-600' : 'text-amber-600'
+            isExamDatePassed ? 'text-green-600 dark:text-green-400' : 'text-amber-600 dark:text-amber-400'
           }`}>
             {isExamDatePassed ? 'lock_open' : 'lock'}
           </span>
           <div className="flex-1">
             <h3 className={`text-xl font-bold mb-2 ${
-              isExamDatePassed ? 'text-green-900' : 'text-amber-900'
+              isExamDatePassed ? 'text-green-900 dark:text-green-100' : 'text-amber-900 dark:text-amber-100'
             }`}>
               {isExamDatePassed ? 'Solutions Unlocked' : 'Solutions Locked'}
             </h3>
             <p className={`text-sm ${
-              isExamDatePassed ? 'text-green-700' : 'text-amber-700'
+              isExamDatePassed ? 'text-green-700 dark:text-green-200' : 'text-amber-700 dark:text-amber-200'
             }`}>
               {isExamDatePassed 
                 ? 'All TD/TP solutions are currently accessible to students.'
@@ -194,25 +194,25 @@ const ExamSettings: React.FC = () => {
       </div>
 
       {/* Settings Form */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200">
-        <div className="p-6 border-b border-slate-200">
-          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700/50">
+        <div className="p-6 border-b border-slate-200 dark:border-slate-700/50">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span className="material-symbols-outlined">settings</span>
             Global Exam Configuration
           </h2>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Set a single exam date that controls solution access for all courses
           </p>
         </div>
 
         <div className="p-6 space-y-6">
           {/* Enable/Disable Toggle */}
-          <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg">
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-1">
+              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Enable Solution Lock
               </label>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Lock all TD/TP solutions until exam date
               </p>
             </div>
@@ -223,27 +223,27 @@ const ExamSettings: React.FC = () => {
                 onChange={(e) => setSettings({ ...settings, isEnabled: e.target.checked })}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              <div className="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 dark:after:border-slate-600 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
             </label>
           </div>
 
           {/* Academic Year */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
               Academic Year
             </label>
             <input
               type="text"
               value={settings.academicYear}
               onChange={(e) => setSettings({ ...settings, academicYear: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary"
+              className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary text-slate-900 dark:text-white"
               placeholder="e.g., 2025-2026"
             />
           </div>
 
           {/* Global Exam Date */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">
+            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
               <span className="material-symbols-outlined text-lg align-middle mr-1">event</span>
               Global Exam Date *
             </label>
@@ -251,19 +251,19 @@ const ExamSettings: React.FC = () => {
               type="date"
               value={settings.globalExamDate}
               onChange={(e) => setSettings({ ...settings, globalExamDate: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary"
+              className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary text-slate-900 dark:text-white"
               required
             />
-            <p className="text-xs text-slate-500 mt-2">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
               All TD/TP solutions will automatically unlock on this date
             </p>
           </div>
 
           {/* Info Box */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <span className="material-symbols-outlined text-blue-600">info</span>
-              <div className="text-sm text-blue-800">
+              <span className="material-symbols-outlined text-blue-600 dark:text-blue-400">info</span>
+              <div className="text-sm text-blue-800 dark:text-blue-200">
                 <p className="font-bold mb-1">How it works:</p>
                 <ul className="space-y-1 list-disc list-inside">
                   <li>Before exam date: All solutions are locked for all courses</li>
@@ -276,10 +276,10 @@ const ExamSettings: React.FC = () => {
         </div>
 
         {/* Footer Actions */}
-        <div className="p-6 bg-slate-50 border-t border-slate-200 rounded-b-xl flex justify-end gap-3">
+        <div className="p-6 bg-slate-50 dark:bg-slate-700/30 border-t border-slate-200 dark:border-slate-700/50 rounded-b-xl flex justify-end gap-3">
           <button
             onClick={fetchSettings}
-            className="px-6 py-3 text-slate-600 hover:text-slate-900 font-bold rounded-lg hover:bg-slate-100 transition-colors"
+            className="px-6 py-3 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-bold rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
           >
             Reset
           </button>
