@@ -165,6 +165,14 @@ const Layout: React.FC = () => {
         {/* Header */}
         <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-20">
           <div className="flex items-center gap-4">
+            {/* Logo - Click to go home */}
+            <Link to="/" className="flex items-center gap-2 font-bold text-lg tracking-tight hover:opacity-80 transition-opacity flex-shrink-0">
+              <div className="size-8 rounded-lg flex items-center justify-center text-white bg-primary">
+                <span className="material-symbols-outlined text-[20px]">school</span>
+              </div>
+              <span className="hidden md:inline text-slate-900 dark:text-white">Voxlearn</span>
+            </Link>
+            
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2 text-slate-500">
               <span className="material-symbols-outlined">menu</span>
             </button>
