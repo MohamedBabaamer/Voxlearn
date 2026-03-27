@@ -69,7 +69,7 @@ git push -u origin main
 Create this file for your repository:
 
 ````markdown
-# UniDash - University Dashboard
+# Voxlearn - University Dashboard
 
 Academic management system for students and administrators.
 
@@ -85,8 +85,8 @@ Academic management system for students and administrators.
 
 ### 1. Clone & Install
 \```bash
-git clone https://github.com/YOUR_USERNAME/UniDash.git
-cd UniDash
+git clone https://github.com/YOUR_USERNAME/Voxlearn.git
+cd Voxlearn
 npm install
 \```
 

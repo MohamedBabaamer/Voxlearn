@@ -1,4 +1,4 @@
-# UniDash - University Academic Dashboard
+# Voxlearn - University Academic Dashboard
 
 Modern academic management system for universities, built with React, TypeScript, and Firebase.
 
@@ -35,8 +35,8 @@ Modern academic management system for universities, built with React, TypeScript
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/UniDash.git
-cd UniDash
+git clone https://github.com/YOUR_USERNAME/Voxlearn.git
+cd Voxlearn
 ```
 
 2. **Install dependencies**
@@ -93,7 +93,7 @@ Visit `http://localhost:3000`
 ## 📁 Project Structure
 
 ```
-UniDash/
+Voxlearn/
 ├── components/          # Reusable React components
 │   ├── Layout.tsx       # Main layout with navigation
 │   ├── ProtectedRoute.tsx

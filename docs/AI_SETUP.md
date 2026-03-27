@@ -1,7 +1,7 @@
 # 🤖 AI Features Setup Guide
 
 ## ✨ What's New?
-Your UniDash now has **AI-powered description generation** for:
+Your Voxlearn now has **AI-powered description generation** for:
 - **Chapter descriptions** in Admin Chapters
 - **Series descriptions** (TD/TP/Exam) in Admin Series
 

@@ -1,7 +1,7 @@
 # Theme & UI Enhancements Documentation
 
 ## Overview
-This document outlines the comprehensive theme improvements, color optimizations, and UI enhancements made to the UniDash application for better visual consistency and user experience across light and dark modes.
+This document outlines the comprehensive theme improvements, color optimizations, and UI enhancements made to the Voxlearn application for better visual consistency and user experience across light and dark modes.
 
 ---
 

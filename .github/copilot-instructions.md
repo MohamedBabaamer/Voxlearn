@@ -1,9 +1,9 @@
-<!-- GitHub Copilot / AI agent instructions for UniDash -->
-# UniDash — Copilot Instructions
+<!-- GitHub Copilot / AI agent instructions for Voxlearn -->
+# Voxlearn — Copilot Instructions
 
 Purpose: quick, actionable guidance so an AI coding agent can be immediately productive in this repo.
 
-- **Big picture:** UniDash is a React + TypeScript single-page app (Vite) that uses Firebase for auth and Firestore as the primary datastore. Routing is mounted inside `AuthProvider` with `HashRouter` ([src/App.tsx](src/App.tsx)). UI pages live in `src/pages`, reusable UI in `src/components`, and business logic lives in `src/services`.
+- **Big picture:** Voxlearn is a React + TypeScript single-page app (Vite) that uses Firebase for auth and Firestore as the primary datastore. Routing is mounted inside `AuthProvider` with `HashRouter` ([src/App.tsx](src/App.tsx)). UI pages live in `src/pages`, reusable UI in `src/components`, and business logic lives in `src/services`.
 
 - **Key integration points:**
   - Authentication: `src/contexts/AuthContext.tsx` reads Firebase auth and user profile documents from Firestore. Use `useAuth()` for auth state and `isAdmin` checks.

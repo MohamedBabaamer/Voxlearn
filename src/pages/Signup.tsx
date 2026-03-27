@@ -49,7 +49,7 @@ const Signup: React.FC = () => {
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressQuery)}&limit=5`,
-          { headers: { 'User-Agent': 'UniDash-App' } }
+          { headers: { 'User-Agent': 'Voxlearn-App' } }
         );
         const data = await response.json();
         setLocationSuggestions(data);
@@ -175,7 +175,7 @@ const Signup: React.FC = () => {
              {step === 1 ? 'Create Account' : 'Complete Your Profile'}
            </h1>
            <p className="text-slate-500 text-sm mt-2">
-             {step === 1 ? 'Join UniDash to access your courses' : 'Help us personalize your experience'}
+             {step === 1 ? 'Join Voxlearn to access your courses' : 'Help us personalize your experience'}
            </p>
         </div>
 

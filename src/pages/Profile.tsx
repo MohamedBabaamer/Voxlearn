@@ -73,7 +73,7 @@ const Profile: React.FC = () => {
         // Using Nominatim (OpenStreetMap) free geocoding API
         const response = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressQuery)}&limit=5`,
-          { headers: { 'User-Agent': 'UniDash-App' } }
+          { headers: { 'User-Agent': 'Voxlearn-App' } }
         );
         const data = await response.json();
         setLocationSuggestions(data);

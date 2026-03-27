@@ -1,4 +1,4 @@
-# Firebase Database Setup for UniDash
+# Firebase Database Setup for Voxlearn
 
 ## ✅ Installation Complete
 Firebase package has been installed successfully!
@@ -9,7 +9,7 @@ Firebase package has been installed successfully!
 
 1. Go to [Firebase Console](https://console.firebase.google.com/)
 2. Click **"Add project"** or **"Create a project"**
-3. Enter your project name (e.g., "UniDash")
+3. Enter your project name (e.g., "Voxlearn")
 4. Follow the setup wizard
 
 ### 2. Enable Services
@@ -30,7 +30,7 @@ Firebase package has been installed successfully!
 1. In Firebase Console → Project Settings ⚙️ → General
 2. Scroll down to "Your apps"
 3. Click the **</>** (Web) icon
-4. Register your app (name: "UniDash")
+4. Register your app (name: "Voxlearn")
 5. Copy the configuration values
 
 ### 4. Update Environment Variables
@@ -124,7 +124,7 @@ await updateCourse(courseId, { progress: 50 });
 ## Project Structure
 
 ```
-UniDash/
+Voxlearn/
 ├── firebase.config.ts          # Firebase initialization
 ├── services/🔧 Firebase initialization
 ├── firestore.rules             # 🔐 قواعد الأمان (انسخها للـ Console)

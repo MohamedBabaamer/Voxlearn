@@ -40,7 +40,7 @@ const Layout: React.FC = () => {
                 <span className="material-symbols-outlined text-[20px]">school</span>
               </div>
               <div>
-                <h1 className="text-lg font-bold tracking-tight">{isAdminRoute ? 'AdminPortal' : 'UniDash'}</h1>
+                <h1 className="text-lg font-bold tracking-tight">{isAdminRoute ? 'AdminPortal' : 'Voxlearn'}</h1>
                 <p className="text-xs text-slate-500">{isAdminRoute ? 'Admin Access' : 'Student Portal'}</p>
               </div>
             </div>

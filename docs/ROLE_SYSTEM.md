@@ -1,7 +1,7 @@
 # Role-Based Access Control System
 
 ## Overview
-The UniDash application now supports two user roles: **Admin** and **Student**.
+The Voxlearn application now supports two user roles: **Admin** and **Student**.
 
 ## Roles
 
