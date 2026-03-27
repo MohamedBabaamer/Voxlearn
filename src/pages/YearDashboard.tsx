@@ -852,7 +852,7 @@ const YearDashboard: React.FC = () => {
 
           {/* Resources Widget */}
           <div className="bg-primary rounded-xl sm:rounded-2xl shadow-lg shadow-blue-500/20 p-4 sm:p-5 text-white relative overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-24 h-24 sm:w-32 sm:h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div className="absolute -top-10 -right-10 w-24 h-24 sm:w-32 sm:h-32 bg-white/10 dark:bg-slate-400/10 rounded-full blur-2xl"></div>
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
                 <span className="material-symbols-outlined text-xl sm:text-2xl">school</span>

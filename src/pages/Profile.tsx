@@ -243,8 +243,8 @@ const Profile: React.FC = () => {
               <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
                 <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight drop-shadow-lg break-words max-w-full">{displayProfile.displayName || user?.displayName || 'User'}</h1>
                 <span className={`inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold shadow-lg backdrop-blur-sm flex-shrink-0 ${displayProfile.role === 'admin'
-                  ? 'bg-white/90 text-purple-700 border-2 border-white'
-                  : 'bg-white/90 text-blue-700 border-2 border-white'
+                  ? 'bg-white/90 dark:bg-slate-800/90 text-purple-700 dark:text-purple-400 border-2 border-white dark:border-slate-700'
+                  : 'bg-white/90 dark:bg-slate-800/90 text-blue-700 dark:text-blue-400 border-2 border-white dark:border-slate-700'
                   }`}>
                   <span className="material-symbols-outlined text-[14px] sm:text-[16px]">
                     {displayProfile.role === 'admin' ? 'admin_panel_settings' : 'person'}
