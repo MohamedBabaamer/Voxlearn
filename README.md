@@ -35,7 +35,7 @@ Modern academic management system for universities, built with React, TypeScript
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/Voxlearn.git
+git clone https://github.com/MohamedBabaamer/Voxlearn.git
 cd Voxlearn
 ```
 
