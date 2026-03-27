@@ -16,7 +16,6 @@ const YearDashboard: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<string>('2024-2025');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'Active' | 'Completed' | 'Upcoming'>('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [bookmarkedCourses, setBookmarkedCourses] = useState<Set<string>>(new Set());
   const [sortBy, setSortBy] = useState<'code' | 'name' | 'professor' | 'credits'>('code');
   const [bookmarkedOnly, setBookmarkedOnly] = useState<boolean>(false);
@@ -495,30 +494,6 @@ const YearDashboard: React.FC = () => {
             >
               Completed
             </button>
-
-            {/* View Mode Toggle */}
-            <div className="flex gap-1 bg-slate-100 dark:bg-slate-700 rounded-lg p-1 ml-auto">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-md transition-colors ${viewMode === 'grid'
-                  ? 'bg-white dark:bg-slate-600 text-primary dark:text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                  }`}
-                title="Grid view"
-              >
-                <span className="material-symbols-outlined text-[20px]">grid_view</span>
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded-md transition-colors ${viewMode === 'list'
-                  ? 'bg-white dark:bg-slate-600 text-primary dark:text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                  }`}
-                title="List view"
-              >
-                <span className="material-symbols-outlined text-[20px]">view_list</span>
-              </button>
-            </div>
           </div>
         </div>
 
@@ -625,22 +600,20 @@ const YearDashboard: React.FC = () => {
               <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">Courses will appear here when added by administrators.</p>
             </div>
           ) : (
-            <div className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6' : 'space-y-3 sm:space-y-4'}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
               {displayCourses.map((course) => (
-                <div key={course.id} className={`group flex ${viewMode === 'list' ? 'flex-col xs:flex-row xs:items-center' : 'flex-col'} bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl ${viewMode === 'list' ? 'p-3 sm:p-4' : 'p-4 sm:p-5'} border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 relative`}>
+                <div key={course.id} className="group flex flex-col bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 relative">
                   {/* Badges */}
-                  {viewMode === 'grid' ? (
-                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4 flex flex-col gap-1 sm:gap-2 items-end z-10">
-                      <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md shadow-sm ${course.level === 'L1' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700/50' : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700/50'}`}>
-                        {course.level}
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 flex flex-col gap-1 sm:gap-2 items-end z-10">
+                    <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md shadow-sm ${course.level === 'L1' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700/50' : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700/50'}`}>
+                      {course.level}
+                    </span>
+                    {course.academicYear !== selectedYear && (
+                      <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50 shadow-sm">
+                        {course.academicYear}
                       </span>
-                      {course.academicYear !== selectedYear && (
-                        <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50 shadow-sm">
-                          {course.academicYear}
-                        </span>
-                      )}
-                    </div>
-                  ) : null}
+                    )}
+                  </div>
 
                   {/* Bookmark Button */}
                   <button
@@ -648,38 +621,29 @@ const YearDashboard: React.FC = () => {
                       e.preventDefault();
                       toggleBookmark(course.id);
                     }}
-                    className={`absolute ${viewMode === 'list' ? 'top-2 left-2 size-6 sm:size-7' : 'top-2 sm:top-3 left-2 sm:left-3 size-7 sm:size-8'} flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800 shadow-sm transition-all z-10`}
+                    className="absolute top-2 sm:top-3 left-2 sm:left-3 size-7 sm:size-8 flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800 shadow-sm transition-all z-10"
                   >
-                    <span className={`material-symbols-outlined ${viewMode === 'list' ? 'text-[16px] sm:text-[18px]' : 'text-[18px] sm:text-[20px]'} ${bookmarkedCourses.has(course.id) ? 'text-amber-500' : 'text-slate-400 dark:text-slate-500'
+                    <span className={`material-symbols-outlined text-[18px] sm:text-[20px] ${bookmarkedCourses.has(course.id) ? 'text-amber-500' : 'text-slate-400 dark:text-slate-500'
                       }`}>
                       {bookmarkedCourses.has(course.id) ? 'bookmark' : 'bookmark_border'}
                     </span>
                   </button>
 
-                  <div className={`flex ${viewMode === 'list' ? 'flex-col xs:flex-row xs:items-center gap-2 sm:gap-3 flex-1 pl-7 xs:pl-7 sm:pl-8 pt-8 xs:pt-0' : 'flex-col'}`}>
-                    <div className={`flex ${viewMode === 'list' ? 'items-center gap-2 sm:gap-3' : 'justify-between items-start mb-3 sm:mb-4'} ${viewMode === 'grid' ? 'pr-6 sm:pr-8 pl-6 sm:pl-8' : ''}`}>
-                      <div className={`${viewMode === 'list' ? 'size-10 sm:size-12' : 'size-11 sm:size-12'} rounded-lg sm:rounded-xl bg-slate-50 dark:bg-slate-700/50 flex items-center justify-center ${course.color} group-hover:scale-110 transition-transform flex-shrink-0`}>
-                        <span className={`material-symbols-outlined ${viewMode === 'list' ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'}`}>{course.icon}</span>
+                  <div className="flex flex-col">
+                    <div className="flex justify-between items-start mb-3 sm:mb-4 pr-6 sm:pr-8 pl-6 sm:pl-8">
+                      <div className="size-11 sm:size-12 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-slate-700/50 flex items-center justify-center ${course.color} group-hover:scale-110 transition-transform flex-shrink-0">
+                        <span className="material-symbols-outlined text-xl sm:text-2xl">{course.icon}</span>
                       </div>
-
-                      {viewMode === 'list' && (
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight truncate">{course.name}</h4>
-                          <p className="text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5 truncate">{course.professor}</p>
-                        </div>
-                      )}
                     </div>
 
-                    {viewMode === 'grid' && (
-                      <div className="mb-3 sm:mb-4">
-                        <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight line-clamp-2">{course.name}</h4>
-                        <p className="text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 truncate">{course.professor}</p>
-                      </div>
-                    )}
+                    <div className="mb-3 sm:mb-4">
+                      <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight line-clamp-2">{course.name}</h4>
+                      <p className="text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 truncate">{course.professor}</p>
+                    </div>
                   </div>
 
                   {/* Progress Bar if Active */}
-                  {course.status === 'Active' && viewMode === 'grid' && (
+                  {course.status === 'Active' && (
                     <div className="mb-3 sm:mb-4">
                       <div className="flex justify-between text-[9px] sm:text-[10px] font-bold uppercase text-slate-400 dark:text-slate-500 mb-1">
                         <span>Progress</span>
@@ -691,68 +655,25 @@ const YearDashboard: React.FC = () => {
                     </div>
                   )}
 
-                  {viewMode === 'list' && course.status === 'Active' && (
-                    <div className="flex items-center gap-2 sm:gap-3 w-full xs:w-auto xs:min-w-[120px] sm:min-w-[150px]">
-                      <div className="flex-1 h-1.5 sm:h-2 bg-slate-100 dark:bg-slate-700/50 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all duration-300" style={{ width: `${calculateCourseProgress(course.id)}%` }}></div>
-                      </div>
-                      <span className="text-[10px] sm:text-xs font-bold text-slate-600 dark:text-slate-400 whitespace-nowrap">{calculateCourseProgress(course.id)}%</span>
+                  <div className="mt-auto pt-3 sm:pt-4 border-t border-slate-100 flex gap-1.5 sm:gap-2">
+                    <div className="flex-1 flex gap-2">
+                      <Link
+                        to={`/course/${course.id}`}
+                        className="flex-1 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary hover:bg-primary/90 text-white text-center text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1 whitespace-nowrap"
+                      >
+                        <span className="material-symbols-outlined text-[12px] sm:text-[14px]">arrow_forward</span>
+                        <span>View Course</span>
+                      </Link>
+                      {/* Admin 'Manage' icon removed from grid view */}
+                      <button
+                        onClick={(e) => { e.preventDefault(); copyToClipboard(window.location.origin + `/course/${course.id}`); }}
+                        className="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 rounded-lg text-slate-700 dark:text-slate-200 text-[10px] hover:bg-slate-200 dark:hover:bg-slate-600"
+                        title="Copy course link"
+                      >
+                        <span className="material-symbols-outlined">link</span>
+                      </button>
                     </div>
-                  )}
-
-                  {viewMode === 'list' && (
-                    <div className="flex items-center gap-2 flex-shrink-0 w-full xs:w-auto justify-between xs:justify-start">
-                      <div className="flex items-center gap-1">
-                        <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md shadow-sm ${course.level === 'L1' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700/50' : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700/50'}`}>
-                          {course.level}
-                        </span>
-                        {course.academicYear !== selectedYear && (
-                          <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50 shadow-sm">
-                            {course.academicYear}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Link
-                          to={`/course/${course.id}`}
-                          className="px-2.5 sm:px-3 py-1.5 sm:py-2 bg-primary hover:bg-primary/90 text-white text-center text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1 whitespace-nowrap"
-                        >
-                          <span className="material-symbols-outlined text-[12px] sm:text-[14px]">arrow_forward</span>
-                          <span>View</span>
-                        </Link>
-                        {/* Admin 'Manage' button removed - View opens course detail */}
-                        <button
-                          onClick={(e) => { e.preventDefault(); copyToClipboard(window.location.origin + `/course/${course.id}`); }}
-                          className="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg text-slate-700 dark:text-slate-200 text-[10px] hover:bg-slate-200 dark:hover:bg-slate-600"
-                          title="Copy course link"
-                        >
-                          <span className="material-symbols-outlined">link</span>
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  {viewMode === 'grid' && (
-                    <div className="mt-auto pt-3 sm:pt-4 border-t border-slate-100 flex gap-1.5 sm:gap-2">
-                      <div className="flex-1 flex gap-2">
-                        <Link
-                          to={`/course/${course.id}`}
-                          className="flex-1 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary hover:bg-primary/90 text-white text-center text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm flex items-center justify-center gap-1 whitespace-nowrap"
-                        >
-                          <span className="material-symbols-outlined text-[12px] sm:text-[14px]">arrow_forward</span>
-                          <span>View Course</span>
-                        </Link>
-                        {/* Admin 'Manage' icon removed from grid view */}
-                        <button
-                          onClick={(e) => { e.preventDefault(); copyToClipboard(window.location.origin + `/course/${course.id}`); }}
-                          className="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 rounded-lg text-slate-700 dark:text-slate-200 text-[10px] hover:bg-slate-200 dark:hover:bg-slate-600"
-                          title="Copy course link"
-                        >
-                          <span className="material-symbols-outlined">link</span>
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>
