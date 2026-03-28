@@ -1,5 +1,7 @@
 # Voxlearn - University Academic Dashboard
 
+🌐 **Live Demo:** https://voxlearn.netlify.app/
+
 Modern academic management system for universities, built with React, TypeScript, and Firebase.
 
 ## ✨ Features
