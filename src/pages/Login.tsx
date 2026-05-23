@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from '../services/auth.service';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -8,25 +9,36 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [pendingRedirect, setPendingRedirect] = useState(false);
+  const { user, userProfile, loading: authLoading } = useAuth();
+  const isAdminUser =
+    userProfile?.role === 'admin' || user?.email?.toLowerCase().startsWith('admin');
+
+  useEffect(() => {
+    if (!pendingRedirect || authLoading || !user) {
+      return;
+    }
+
+    if (isAdminUser) {
+      navigate('/admin/modules', { replace: true });
+    } else {
+      navigate('/', { replace: true });
+    }
+
+    setPendingRedirect(false);
+  }, [authLoading, isAdminUser, navigate, pendingRedirect, user]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
+    setPendingRedirect(true);
 
     try {
       await signIn(email, password);
-
-      // Check if admin based on email
-      const isAdmin = email.toLowerCase().startsWith('admin');
-
-      if (isAdmin) {
-        navigate('/admin/modules');
-      } else {
-        navigate('/');
-      }
     } catch (err: any) {
       console.error('Login error:', err);
+      setPendingRedirect(false);
 
       // Handle Firebase auth errors
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
